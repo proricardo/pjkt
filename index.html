@@ -1,0 +1,1069 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<!--
+  ============================================================
+  PROJEKT — Website Institucional
+  ============================================================
+  Empresa: Projekt Gestão de Projetos
+  Localização: Curitiba, PR — Brasil
+  Especialidades: Tecnologia · Gestão Ágil · IA
+
+  Design: Inspirado em tesla.com — seções full-screen,
+          tipografia impactante, movimento e minimalismo
+
+  Benchmarking realizado com:
+    • Tesla.com       → seções imersivas 100vh, copy minimalista
+    • Linear.app      → dark theme sofisticado, micro-animações
+    • Stripe.com      → UX impecável, hierarquia visual clara
+    • McKinsey.com    → autoridade, dados, seções em grade
+    • Thoughtworks    → credibilidade técnica, storytelling ágil
+    • Palantir.com    → estética tech de alta densidade
+
+  Stack tecnológica:
+    • HTML5 semântico com ARIA labels para acessibilidade
+    • Google Fonts: Inter (corpo) + Space Grotesk (headings)
+    • Font Awesome 6 (ícones)
+    • GSAP 3 + ScrollTrigger (animações de alta performance)
+    • CSS Custom Properties (theming e manutenibilidade)
+    • Intersection Observer API (animações on-scroll)
+
+  Manutenção: Cada seção está claramente delimitada por
+  comentários descritivos. Para alterar conteúdo textual,
+  busque a seção pelo seu ID ou pelo comentário de bloco.
+  ============================================================
+-->
+
+<head>
+  <!-- ─── METADADOS ESSENCIAIS ──────────────────────────── -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+  <!-- SEO: título e descrição otimizados para busca orgânica -->
+  <title>Projekt — Gestão de Projetos de Tecnologia e IA | Curitiba</title>
+  <meta name="description" content="Projekt: consultoria especializada em projetos de tecnologia, gestão ágil e inteligência artificial. Mais de 30 anos de experiência. Curitiba, PR." />
+  <meta name="keywords" content="gestão de projetos, tecnologia, agile, inteligência artificial, IA, Curitiba, consultoria, scrum, kanban, PMO" />
+  <meta name="author" content="Projekt Gestão de Projetos" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://www.projekt.com.br/" />
+
+  <!-- Open Graph: compartilhamento em redes sociais -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://www.projekt.com.br/" />
+  <meta property="og:title" content="Projekt — Gestão de Projetos de Tecnologia e IA" />
+  <meta property="og:description" content="Consultoria especializada em tecnologia, gestão ágil e IA. 30+ anos de experiência. Curitiba, PR." />
+  <meta property="og:image" content="https://www.projekt.com.br/assets/og-image.jpg" />
+  <meta property="og:locale" content="pt_BR" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Projekt — Gestão de Projetos de Tecnologia e IA" />
+  <meta name="twitter:description" content="Consultoria especializada em tecnologia, gestão ágil e IA. 30+ anos de experiência. Curitiba, PR." />
+
+  <!-- ─── FONTES GOOGLE ─────────────────────────────────── -->
+  <!--
+    Inter: corpo de texto — altamente legível, moderno
+    Space Grotesk: headings — geométrico, tech, premium
+    Carregamento otimizado com preconnect para performance
+  -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+
+  <!-- ─── FONT AWESOME (ÍCONES) ────────────────────────── -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  />
+
+  <!-- ─── ESTILOS PRINCIPAIS ───────────────────────────── -->
+  <link rel="stylesheet" href="css/style.css" />
+
+  <!-- Favicon (substituir pelo arquivo real) -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>P</text></svg>" />
+</head>
+
+<body>
+
+  <!-- ════════════════════════════════════════════════════════
+       CURSOR PERSONALIZADO
+       Elemento visual de luxo — rastreia o mouse com delay
+       (só aparece em desktops, escondido em touch devices)
+  ════════════════════════════════════════════════════════ -->
+  <div class="cursor" id="cursor" aria-hidden="true">
+    <div class="cursor-dot"></div>
+    <div class="cursor-ring"></div>
+  </div>
+
+  <!-- ════════════════════════════════════════════════════════
+       BARRA DE PROGRESSO DE SCROLL
+       Linha fina no topo que cresce conforme o usuário rola
+  ════════════════════════════════════════════════════════ -->
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+  <!-- ════════════════════════════════════════════════════════
+       NAVEGAÇÃO PRINCIPAL
+       ─────────────────────────────────────────────────────
+       Comportamento: transparente sobre o hero, converte para
+       glass-morphism ao fazer scroll. Menu hambúrguer em mobile.
+
+       Para editar os links: altere os <a href="#..."> e o
+       texto dentro de cada <li>
+  ════════════════════════════════════════════════════════ -->
+  <header class="nav-header" id="navbar" role="banner">
+    <nav class="nav-container" aria-label="Navegação principal">
+
+      <!-- Logo — substituir href por "/" em produção -->
+      <a href="#hero" class="nav-logo" aria-label="Projekt — Início">
+        <span class="logo-mark">P</span>
+        <span class="logo-text">PROJEKT</span>
+      </a>
+
+      <!-- Links de navegação desktop -->
+      <ul class="nav-links" role="list">
+        <li><a href="#solucoes" class="nav-link">Soluções</a></li>
+        <li><a href="#diferenciais" class="nav-link">Diferenciais</a></li>
+        <li><a href="#metodologia" class="nav-link">Metodologia</a></li>
+        <li><a href="#sobre" class="nav-link">Sobre</a></li>
+        <li><a href="#contato" class="nav-link">Contato</a></li>
+      </ul>
+
+      <!-- CTA principal: WhatsApp — atualizar número -->
+      <a
+        href="https://wa.me/5541999999999?text=Olá!%20Gostaria%20de%20conhecer%20mais%20sobre%20a%20Projekt."
+        class="nav-cta"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Falar com especialista pelo WhatsApp"
+      >
+        <i class="fab fa-whatsapp" aria-hidden="true"></i>
+        Falar com Especialista
+      </a>
+
+      <!-- Botão hambúrguer para mobile -->
+      <button
+        class="nav-toggle"
+        id="navToggle"
+        aria-label="Abrir menu de navegação"
+        aria-expanded="false"
+        aria-controls="mobileMenu"
+      >
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+      </button>
+    </nav>
+
+    <!-- Menu mobile (overlay) -->
+    <div class="mobile-menu" id="mobileMenu" role="dialog" aria-label="Menu de navegação" aria-hidden="true">
+      <ul class="mobile-nav-links" role="list">
+        <li><a href="#solucoes" class="mobile-nav-link">Soluções</a></li>
+        <li><a href="#diferenciais" class="mobile-nav-link">Diferenciais</a></li>
+        <li><a href="#metodologia" class="mobile-nav-link">Metodologia</a></li>
+        <li><a href="#sobre" class="mobile-nav-link">Sobre</a></li>
+        <li><a href="#contato" class="mobile-nav-link">Contato</a></li>
+        <li>
+          <a
+            href="https://wa.me/5541999999999?text=Olá!%20Gostaria%20de%20conhecer%20mais%20sobre%20a%20Projekt."
+            class="mobile-nav-cta"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <i class="fab fa-whatsapp" aria-hidden="true"></i>
+            Falar com Especialista
+          </a>
+        </li>
+      </ul>
+    </div>
+  </header>
+
+  <main id="main-content">
+
+    <!-- ══════════════════════════════════════════════════════
+         SEÇÃO 1: HERO
+         ──────────────────────────────────────────────────
+         Estilo Tesla: 100vh, imagem dramática com overlay,
+         headline impactante centralizada, dois CTAs.
+
+         IMAGEM: Curitiba à noite com arranha-céus e luzes
+         refletidas — evoca modernidade e localização sem clichê
+
+         Para trocar a imagem de fundo: edite a variável CSS
+         --hero-bg no arquivo style.css ou no inline style abaixo
+    ══════════════════════════════════════════════════════ -->
+    <section
+      id="hero"
+      class="hero-section"
+      aria-label="Apresentação da Projekt"
+      style="--hero-bg: url('https://images.unsplash.com/photo-1573164713988-8665fc963095?w=1920&q=85&auto=format');"
+    >
+      <!-- Overlay gradiente para garantir legibilidade do texto -->
+      <div class="hero-overlay" aria-hidden="true"></div>
+
+      <!-- Partículas animadas (geradas via JS) -->
+      <div class="hero-particles" id="heroParticles" aria-hidden="true"></div>
+
+      <!-- Conteúdo principal do hero -->
+      <div class="hero-content">
+        <div class="hero-badge reveal-up">
+          <span class="badge-dot"></span>
+          Curitiba, Paraná — Brasil
+        </div>
+
+        <h1 class="hero-title reveal-up">
+          Projetos que<br />
+          <span class="text-gradient">Definem</span><br />
+          o Futuro
+        </h1>
+
+        <p class="hero-subtitle reveal-up">
+          Consultoria especializada em tecnologia, gestão ágil e IA.<br />
+          Mais de 30 anos transformando visão em resultado.
+        </p>
+
+        <!-- Par de CTAs — padrão Tesla: primário + secundário -->
+        <div class="hero-ctas reveal-up">
+          <a href="#contato" class="btn-primary">
+            Iniciar Projeto
+            <i class="fas fa-arrow-right" aria-hidden="true"></i>
+          </a>
+          <a href="#solucoes" class="btn-secondary">
+            Nossas Soluções
+          </a>
+        </div>
+      </div>
+
+      <!-- Indicador de scroll animado -->
+      <div class="scroll-indicator" aria-label="Role para baixo" aria-hidden="true">
+        <div class="scroll-line"></div>
+        <span class="scroll-label">Role</span>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════════════════
+         SEÇÃO 2: MANIFESTO
+         ──────────────────────────────────────────────────
+         Seção de impacto: fundo escuro, frase forte,
+         métricas que estabelecem credibilidade.
+
+         Para editar as métricas: localize os elementos
+         com a classe .stat-number e atualize o data-target
+         e o texto formatado abaixo.
+    ══════════════════════════════════════════════════════ -->
+    <section id="manifesto" class="manifesto-section" aria-label="Manifesto da Projekt">
+      <div class="container">
+
+        <div class="manifesto-label reveal-up">
+          <span class="section-eyebrow">Nossa Essência</span>
+        </div>
+
+        <blockquote class="manifesto-quote reveal-up">
+          "Transformamos complexidade em<br />
+          <em>resultado mensurável.</em>"
+        </blockquote>
+
+        <p class="manifesto-body reveal-up">
+          Na Projekt, não entregamos relatórios — entregamos projetos concluídos.
+          Com consultores seniores que viveram a evolução da tecnologia por dentro,
+          unimos rigor metodológico à agilidade que o mercado atual exige.
+        </p>
+
+        <!-- Grade de métricas — números animados via JS -->
+        <div class="stats-grid reveal-up">
+          <div class="stat-card">
+            <span class="stat-number" data-target="30">0</span>
+            <span class="stat-suffix">+</span>
+            <span class="stat-label">Anos de Experiência em Tecnologia</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-number" data-target="150">0</span>
+            <span class="stat-suffix">+</span>
+            <span class="stat-label">Projetos Entregues</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-number" data-target="98">0</span>
+            <span class="stat-suffix">%</span>
+            <span class="stat-label">Taxa de Satisfação</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-number" data-target="3">0</span>
+            <span class="stat-suffix">x</span>
+            <span class="stat-label">Mais Rápido que a Média do Setor</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════════════════
+         SEÇÃO 3: SOLUÇÕES (3 painéis estilo Tesla)
+         ──────────────────────────────────────────────────
+         Cada serviço ocupa 100vh com imagem de fundo,
+         overlay e conteúdo posicionado. Alterna entre
+         alinhamento esquerdo e direito para variedade visual.
+
+         IMAGENS: Escolhidas para evitar clichês — foco em
+         abstração visual que remete ao tema sem ser literal.
+    ══════════════════════════════════════════════════════ -->
+    <section id="solucoes" aria-label="Soluções da Projekt">
+
+      <!-- ── Solução 1: Projetos de Tecnologia ── -->
+      <article
+        class="service-panel panel-align-bottom"
+        style="--panel-bg: url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1920&q=85&auto=format');"
+        aria-label="Projetos de Tecnologia"
+      >
+        <div class="panel-overlay" aria-hidden="true"></div>
+        <div class="panel-content container">
+          <div class="panel-inner align-left">
+            <span class="panel-eyebrow reveal-up">01 — Tecnologia</span>
+            <h2 class="panel-title reveal-up">
+              Projetos de<br />Tecnologia
+            </h2>
+            <p class="panel-description reveal-up">
+              Da arquitetura de sistemas à implantação — gerenciamos
+              iniciativas tecnológicas complexas com governança, rastreabilidade
+              e entrega dentro do escopo, prazo e orçamento.
+            </p>
+            <ul class="panel-features reveal-up">
+              <li><i class="fas fa-check" aria-hidden="true"></i> Gestão de portfólio tecnológico</li>
+              <li><i class="fas fa-check" aria-hidden="true"></i> Transformação digital corporativa</li>
+              <li><i class="fas fa-check" aria-hidden="true"></i> Arquitetura e integração de sistemas</li>
+              <li><i class="fas fa-check" aria-hidden="true"></i> Gestão de fornecedores de TI</li>
+            </ul>
+            <a href="#contato" class="panel-cta reveal-up">
+              Saiba mais <i class="fas fa-arrow-right" aria-hidden="true"></i>
+            </a>
+          </div>
+        </div>
+      </article>
+
+      <!-- ── Solução 2: Gestão Ágil ── -->
+      <article
+        class="service-panel panel-align-bottom"
+        style="--panel-bg: url('https://images.unsplash.com/photo-1504639725590-34d0984388bd?w=1920&q=85&auto=format');"
+        aria-label="Gestão Ágil"
+      >
+        <div class="panel-overlay panel-overlay-right" aria-hidden="true"></div>
+        <div class="panel-content container">
+          <div class="panel-inner align-right">
+            <span class="panel-eyebrow reveal-up">02 — Agilidade</span>
+            <h2 class="panel-title reveal-up">
+              Gestão<br />Ágil
+            </h2>
+            <p class="panel-description reveal-up">
+              Frameworks ágeis não são receitas de bolo — são filosofias.
+              Adaptamos Scrum, Kanban, SAFe e OKRs à cultura e ao ritmo
+              real da sua organização, gerando resultados desde a primeira sprint.
+            </p>
+            <ul class="panel-features reveal-up">
+              <li><i class="fas fa-check" aria-hidden="true"></i> Implementação de Scrum e Kanban</li>
+              <li><i class="fas fa-check" aria-hidden="true"></i> Scaled Agile (SAFe, LeSS)</li>
+              <li><i class="fas fa-check" aria-hidden="true"></i> OKRs e métricas de produto</li>
+              <li><i class="fas fa-check" aria-hidden="true"></i> Coaching de times e liderança</li>
+            </ul>
+            <a href="#contato" class="panel-cta reveal-up">
+              Saiba mais <i class="fas fa-arrow-right" aria-hidden="true"></i>
+            </a>
+          </div>
+        </div>
+      </article>
+
+      <!-- ── Solução 3: Projetos de IA ── -->
+      <article
+        class="service-panel panel-align-bottom service-panel-ai"
+        style="--panel-bg: url('https://images.unsplash.com/photo-1620712943543-bcc4688e7485?w=1920&q=85&auto=format');"
+        aria-label="Projetos de Inteligência Artificial"
+      >
+        <div class="panel-overlay" aria-hidden="true"></div>
+        <div class="panel-content container">
+          <div class="panel-inner align-left">
+            <span class="panel-eyebrow panel-eyebrow-ai reveal-up">03 — Inteligência Artificial</span>
+            <h2 class="panel-title reveal-up">
+              Projetos de<br />Inteligência<br />Artificial
+            </h2>
+            <p class="panel-description reveal-up">
+              IA não é tendência — é o novo campo de batalha competitivo.
+              Gerenciamos iniciativas de IA do estudo de viabilidade à
+              produção, com rigor em ética, dados, governança e ROI.
+            </p>
+            <ul class="panel-features reveal-up">
+              <li><i class="fas fa-check" aria-hidden="true"></i> Estratégia e roadmap de IA</li>
+              <li><i class="fas fa-check" aria-hidden="true"></i> Gestão de projetos de ML/LLM</li>
+              <li><i class="fas fa-check" aria-hidden="true"></i> Governança e ética em IA</li>
+              <li><i class="fas fa-check" aria-hidden="true"></i> Integração de IA a processos de negócio</li>
+            </ul>
+            <a href="#contato" class="panel-cta panel-cta-ai reveal-up">
+              Saiba mais <i class="fas fa-arrow-right" aria-hidden="true"></i>
+            </a>
+          </div>
+        </div>
+      </article>
+
+    </section>
+
+    <!-- ══════════════════════════════════════════════════════
+         SEÇÃO 4: DIFERENCIAIS
+         ──────────────────────────────────────────────────
+         Grade de cards com os principais diferenciadores.
+         Inspiração McKinsey: clareza, autoridade, dados.
+    ══════════════════════════════════════════════════════ -->
+    <section id="diferenciais" class="diferenciais-section" aria-label="Diferenciais da Projekt">
+      <div class="container">
+
+        <div class="section-header reveal-up">
+          <span class="section-eyebrow">Por que Projekt</span>
+          <h2 class="section-title">
+            O que nos torna<br />diferentes
+          </h2>
+          <p class="section-subtitle">
+            Décadas de experiência não significam entregar o passado —
+            significam navegar o presente com maturidade e visão.
+          </p>
+        </div>
+
+        <div class="diferenciais-grid">
+
+          <div class="diferencial-card reveal-up">
+            <div class="diferencial-icon">
+              <i class="fas fa-chess-king" aria-hidden="true"></i>
+            </div>
+            <h3 class="diferencial-title">Seniority Real</h3>
+            <p class="diferencial-body">
+              Nossos consultores têm mais de 30 anos de experiência
+              prática em tecnologia. Nada de estagiários gerindo
+              projetos críticos — aqui, os seniores estão no campo.
+            </p>
+          </div>
+
+          <div class="diferencial-card reveal-up">
+            <div class="diferencial-icon">
+              <i class="fas fa-bullseye" aria-hidden="true"></i>
+            </div>
+            <h3 class="diferencial-title">Foco em Resultado</h3>
+            <p class="diferencial-body">
+              Medimos sucesso por projetos entregues, não por horas
+              faturadas. Cada engajamento começa definindo o que
+              significa "concluído" para o seu negócio.
+            </p>
+          </div>
+
+          <div class="diferencial-card reveal-up">
+            <div class="diferencial-icon">
+              <i class="fas fa-code-branch" aria-hidden="true"></i>
+            </div>
+            <h3 class="diferencial-title">Tecnologia Agnóstica</h3>
+            <p class="diferencial-body">
+              Sem preferências por vendors ou stacks. Recomendamos
+              a melhor solução para o seu contexto, não a que
+              nos gera mais margem.
+            </p>
+          </div>
+
+          <div class="diferencial-card reveal-up">
+            <div class="diferencial-icon">
+              <i class="fas fa-shield-halved" aria-hidden="true"></i>
+            </div>
+            <h3 class="diferencial-title">Governança Sólida</h3>
+            <p class="diferencial-body">
+              Rastreabilidade completa de decisões, riscos e
+              mudanças de escopo. Seu projeto sempre visível,
+              nunca uma caixa preta.
+            </p>
+          </div>
+
+          <div class="diferencial-card reveal-up">
+            <div class="diferencial-icon">
+              <i class="fas fa-location-dot" aria-hidden="true"></i>
+            </div>
+            <h3 class="diferencial-title">Presença em Curitiba</h3>
+            <p class="diferencial-body">
+              Enraizados no ecossistema tech mais estruturado do
+              Sul do Brasil. Proximidade com o cliente e acesso
+              ao melhor talento da região.
+            </p>
+          </div>
+
+          <div class="diferencial-card reveal-up">
+            <div class="diferencial-icon">
+              <i class="fas fa-brain" aria-hidden="true"></i>
+            </div>
+            <h3 class="diferencial-title">IA Aplicada</h3>
+            <p class="diferencial-body">
+              Não só gerenciamos projetos de IA — usamos IA
+              para gerenciar projetos. Ferramentas, automação
+              e dados a serviço da entrega.
+            </p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════════════════
+         SEÇÃO 5: METODOLOGIA
+         ──────────────────────────────────────────────────
+         Processo em linha do tempo — como a Projekt trabalha.
+         Design inspirado em Thoughtworks e Stripe.
+    ══════════════════════════════════════════════════════ -->
+    <section id="metodologia" class="metodologia-section" aria-label="Metodologia da Projekt">
+      <div class="container">
+
+        <div class="section-header reveal-up">
+          <span class="section-eyebrow">Como Trabalhamos</span>
+          <h2 class="section-title">
+            Da conversa<br />à entrega
+          </h2>
+          <p class="section-subtitle">
+            Uma jornada estruturada que elimina surpresas
+            e maximiza valor em cada fase.
+          </p>
+        </div>
+
+        <!-- Linha do tempo horizontal (desktop) / vertical (mobile) -->
+        <div class="process-timeline" role="list">
+
+          <div class="process-step reveal-up" role="listitem">
+            <div class="step-number" aria-hidden="true">01</div>
+            <div class="step-connector" aria-hidden="true"></div>
+            <div class="step-content">
+              <h3 class="step-title">Diagnóstico</h3>
+              <p class="step-body">
+                Imersão no contexto do cliente: objetivos, restrições,
+                stakeholders e riscos. Sem diagnóstico, qualquer solução é chute.
+              </p>
+            </div>
+          </div>
+
+          <div class="process-step reveal-up" role="listitem">
+            <div class="step-number" aria-hidden="true">02</div>
+            <div class="step-connector" aria-hidden="true"></div>
+            <div class="step-content">
+              <h3 class="step-title">Planejamento</h3>
+              <p class="step-body">
+                Escopo definido, WBS estruturada, cronograma realista e
+                plano de riscos. A fundação que evita crises.
+              </p>
+            </div>
+          </div>
+
+          <div class="process-step reveal-up" role="listitem">
+            <div class="step-number" aria-hidden="true">03</div>
+            <div class="step-connector" aria-hidden="true"></div>
+            <div class="step-content">
+              <h3 class="step-title">Execução Ágil</h3>
+              <p class="step-body">
+                Ciclos curtos de entrega, visibilidade total e adaptação
+                contínua. Valor gerado desde a primeira semana.
+              </p>
+            </div>
+          </div>
+
+          <div class="process-step reveal-up" role="listitem">
+            <div class="step-number" aria-hidden="true">04</div>
+            <div class="step-connector" aria-hidden="true"></div>
+            <div class="step-content">
+              <h3 class="step-title">Monitoramento</h3>
+              <p class="step-body">
+                Dashboards em tempo real, KPIs claros e reuniões de
+                alinhamento objetivas. Sem reuniões desnecessárias.
+              </p>
+            </div>
+          </div>
+
+          <div class="process-step reveal-up" role="listitem">
+            <div class="step-number" aria-hidden="true">05</div>
+            <div class="step-connector last-step" aria-hidden="true"></div>
+            <div class="step-content">
+              <h3 class="step-title">Encerramento</h3>
+              <p class="step-body">
+                Transferência de conhecimento, documentação e lições
+                aprendidas. Seu time capacitado para sustentar o resultado.
+              </p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════════════════
+         SEÇÃO 6: SOBRE
+         ──────────────────────────────────────────────────
+         História e posicionamento. Imagem de Curitiba
+         ao fundo para criar conexão com a cidade.
+    ══════════════════════════════════════════════════════ -->
+    <section
+      id="sobre"
+      class="sobre-section"
+      aria-label="Sobre a Projekt"
+    >
+      <div class="sobre-image-col" aria-hidden="true">
+        <div
+          class="sobre-image"
+          style="background-image: url('https://images.unsplash.com/photo-1568435363985-773d9e30dcc3?w=900&q=85&auto=format');"
+          role="img"
+          aria-label="Curitiba, Paraná — sede da Projekt"
+        ></div>
+      </div>
+
+      <div class="sobre-content-col">
+        <div class="sobre-content">
+          <span class="section-eyebrow reveal-up">Sobre a Projekt</span>
+          <h2 class="section-title reveal-up">
+            Nascemos da<br />experiência,<br />vivemos pela entrega.
+          </h2>
+          <p class="sobre-body reveal-up">
+            A Projekt nasceu de uma convicção simples: o mercado brasileiro de
+            tecnologia precisa de gestão de projetos feita por quem já viveu
+            os erros mais caros — e aprendeu a evitá-los.
+          </p>
+          <p class="sobre-body reveal-up">
+            Nosso core é formado por consultores seniores com mais de 30 anos
+            de experiência prática em tecnologia. Passaram por multinacionais,
+            startups e órgãos públicos. Conhecem os atalhos e os becos sem saída.
+          </p>
+          <p class="sobre-body reveal-up">
+            Baseados em Curitiba — cidade que concentra o ecossistema tech
+            mais maduro do Sul do Brasil — atendemos clientes em todo o país
+            com a profundidade técnica de quem esteve na trincheira.
+          </p>
+
+          <!-- Destaques rápidos -->
+          <div class="sobre-highlights reveal-up">
+            <div class="highlight-item">
+              <i class="fas fa-map-marker-alt" aria-hidden="true"></i>
+              <span>Curitiba, Paraná</span>
+            </div>
+            <div class="highlight-item">
+              <i class="fas fa-users" aria-hidden="true"></i>
+              <span>Consultores Seniores</span>
+            </div>
+            <div class="highlight-item">
+              <i class="fas fa-certificate" aria-hidden="true"></i>
+              <span>PMP · CSM · PMI-ACP · CAPM</span>
+            </div>
+          </div>
+
+          <a href="#contato" class="btn-primary reveal-up">
+            Conheça Nossa Equipe
+            <i class="fas fa-arrow-right" aria-hidden="true"></i>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════════════════
+         SEÇÃO 7: DEPOIMENTOS (SOCIAL PROOF)
+         ──────────────────────────────────────────────────
+         Carrossel de depoimentos — adicione / remova cards
+         conforme necessário. O JS gerencia a navegação.
+    ══════════════════════════════════════════════════════ -->
+    <section id="depoimentos" class="depoimentos-section" aria-label="Depoimentos de clientes">
+      <div class="container">
+
+        <div class="section-header reveal-up">
+          <span class="section-eyebrow">O que dizem nossos clientes</span>
+          <h2 class="section-title">Resultados reais,<br />vozes reais.</h2>
+        </div>
+
+        <div class="testimonials-wrapper reveal-up">
+          <!-- Carrossel de depoimentos -->
+          <div class="testimonials-track" id="testimonialsTrack" role="list">
+
+            <blockquote class="testimonial-card" role="listitem">
+              <p class="testimonial-quote">
+                "A Projekt transformou o caos do nosso projeto de ERP em uma
+                entrega estruturada. Em 8 meses fizemos o que não conseguimos
+                em 2 anos anteriores."
+              </p>
+              <footer class="testimonial-author">
+                <div class="author-info">
+                  <cite class="author-name">Marcelo Fernandes</cite>
+                  <span class="author-role">CTO — Grupo Paranaense</span>
+                </div>
+              </footer>
+            </blockquote>
+
+            <blockquote class="testimonial-card" role="listitem">
+              <p class="testimonial-quote">
+                "O olhar deles sobre IA foi determinante. Não só gerenciaram
+                o projeto — nos ajudaram a fazer as perguntas certas antes
+                de escrever a primeira linha de código."
+              </p>
+              <footer class="testimonial-author">
+                <div class="author-info">
+                  <cite class="author-name">Camila Rocha</cite>
+                  <span class="author-role">Head of Data — Fintech Sul</span>
+                </div>
+              </footer>
+            </blockquote>
+
+            <blockquote class="testimonial-card" role="listitem">
+              <p class="testimonial-quote">
+                "Consultoria sem enrolação. Diagnosticaram os problemas na
+                primeira semana, priorizaram o que importava e entregaram
+                dentro do prazo — raridade no setor."
+              </p>
+              <footer class="testimonial-author">
+                <div class="author-info">
+                  <cite class="author-name">Ricardo Alves</cite>
+                  <span class="author-role">Diretor de Operações — Indústria Curitibana</span>
+                </div>
+              </footer>
+            </blockquote>
+
+          </div>
+
+          <!-- Controles do carrossel -->
+          <div class="testimonials-controls" aria-label="Controles do carrossel">
+            <button class="testimonial-btn" id="testimonialPrev" aria-label="Depoimento anterior">
+              <i class="fas fa-chevron-left" aria-hidden="true"></i>
+            </button>
+            <div class="testimonial-dots" id="testimonialDots" role="tablist" aria-label="Indicadores de depoimentos"></div>
+            <button class="testimonial-btn" id="testimonialNext" aria-label="Próximo depoimento">
+              <i class="fas fa-chevron-right" aria-hidden="true"></i>
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════════════════
+         SEÇÃO 8: CONTATO
+         ──────────────────────────────────────────────────
+         CTA final + múltiplos canais de contato.
+         WhatsApp como canal principal (comportamento brasileiro).
+
+         Para atualizar contatos: edite os href dos links abaixo
+         e o número no botão de WhatsApp.
+    ══════════════════════════════════════════════════════ -->
+    <section id="contato" class="contato-section" aria-label="Entre em contato com a Projekt">
+      <div class="container">
+
+        <div class="contato-grid">
+
+          <!-- Coluna esquerda: CTA -->
+          <div class="contato-left">
+            <span class="section-eyebrow reveal-up">Contato</span>
+            <h2 class="contato-title reveal-up">
+              Vamos construir<br />
+              algo grande<br />
+              <span class="text-gradient">juntos?</span>
+            </h2>
+            <p class="contato-subtitle reveal-up">
+              Conte-nos sobre seu projeto. Respondemos em até 24 horas
+              úteis — geralmente muito antes disso.
+            </p>
+
+            <!-- Canais de contato direto -->
+            <div class="contato-channels reveal-up">
+
+              <!-- WhatsApp — canal principal -->
+              <a
+                href="https://wa.me/5541999999999?text=Olá!%20Gostaria%20de%20conversar%20sobre%20um%20projeto."
+                class="channel-link channel-whatsapp"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Falar pelo WhatsApp"
+              >
+                <div class="channel-icon">
+                  <i class="fab fa-whatsapp" aria-hidden="true"></i>
+                </div>
+                <div class="channel-info">
+                  <span class="channel-label">WhatsApp</span>
+                  <!-- ATUALIZAR: número de WhatsApp -->
+                  <span class="channel-value">(41) 9 9999-9999</span>
+                </div>
+                <i class="fas fa-arrow-right channel-arrow" aria-hidden="true"></i>
+              </a>
+
+              <!-- Email -->
+              <a
+                href="mailto:contato@projekt.com.br"
+                class="channel-link channel-email"
+                aria-label="Enviar e-mail para a Projekt"
+              >
+                <div class="channel-icon">
+                  <i class="fas fa-envelope" aria-hidden="true"></i>
+                </div>
+                <div class="channel-info">
+                  <span class="channel-label">E-mail</span>
+                  <!-- ATUALIZAR: endereço de e-mail -->
+                  <span class="channel-value">contato@projekt.com.br</span>
+                </div>
+                <i class="fas fa-arrow-right channel-arrow" aria-hidden="true"></i>
+              </a>
+
+              <!-- LinkedIn -->
+              <a
+                href="https://linkedin.com/company/projekt"
+                class="channel-link channel-linkedin"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Visitar o LinkedIn da Projekt"
+              >
+                <div class="channel-icon">
+                  <i class="fab fa-linkedin" aria-hidden="true"></i>
+                </div>
+                <div class="channel-info">
+                  <span class="channel-label">LinkedIn</span>
+                  <!-- ATUALIZAR: URL do LinkedIn -->
+                  <span class="channel-value">linkedin.com/company/projekt</span>
+                </div>
+                <i class="fas fa-arrow-right channel-arrow" aria-hidden="true"></i>
+              </a>
+
+            </div>
+
+            <!-- Endereço físico -->
+            <address class="contato-address reveal-up">
+              <i class="fas fa-location-dot" aria-hidden="true"></i>
+              <!-- ATUALIZAR: endereço completo -->
+              Curitiba, Paraná — Brasil
+            </address>
+          </div>
+
+          <!-- Coluna direita: Formulário de contato -->
+          <div class="contato-right reveal-up">
+            <form class="contato-form" id="contatoForm" novalidate aria-label="Formulário de contato">
+              <div class="form-header">
+                <h3 class="form-title">Fale Conosco</h3>
+                <p class="form-subtitle">Preencha e entraremos em contato.</p>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="nomeInput">Nome completo *</label>
+                <input
+                  type="text"
+                  id="nomeInput"
+                  name="nome"
+                  class="form-input"
+                  placeholder="Seu nome"
+                  required
+                  autocomplete="name"
+                  aria-required="true"
+                />
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="emailInput">E-mail corporativo *</label>
+                <input
+                  type="email"
+                  id="emailInput"
+                  name="email"
+                  class="form-input"
+                  placeholder="seu@empresa.com.br"
+                  required
+                  autocomplete="email"
+                  aria-required="true"
+                />
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="empresaInput">Empresa</label>
+                <input
+                  type="text"
+                  id="empresaInput"
+                  name="empresa"
+                  class="form-input"
+                  placeholder="Nome da sua empresa"
+                  autocomplete="organization"
+                />
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="servicoSelect">Área de interesse</label>
+                <select id="servicoSelect" name="servico" class="form-input form-select">
+                  <option value="">Selecione uma área</option>
+                  <option value="tecnologia">Projetos de Tecnologia</option>
+                  <option value="agile">Gestão Ágil</option>
+                  <option value="ia">Projetos de IA</option>
+                  <option value="outro">Outro</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="mensagemInput">Mensagem *</label>
+                <textarea
+                  id="mensagemInput"
+                  name="mensagem"
+                  class="form-input form-textarea"
+                  placeholder="Conte-nos sobre seu projeto ou desafio..."
+                  required
+                  aria-required="true"
+                  rows="4"
+                ></textarea>
+              </div>
+
+              <button type="submit" class="btn-primary form-submit">
+                <span class="btn-text">Enviar Mensagem</span>
+                <i class="fas fa-paper-plane" aria-hidden="true"></i>
+                <!-- Spinner de loading (exibido durante envio) -->
+                <span class="btn-spinner" aria-hidden="true"></span>
+              </button>
+
+              <!-- Mensagem de sucesso/erro do formulário -->
+              <div class="form-feedback" id="formFeedback" role="alert" aria-live="polite"></div>
+            </form>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ════════════════════════════════════════════════════════
+       FOOTER
+       ─────────────────────────────────────────────────────
+       Links institucionais, redes sociais e copyright.
+       Para adicionar/remover redes sociais: edite a .social-links
+  ════════════════════════════════════════════════════════ -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="container">
+
+      <div class="footer-grid">
+
+        <!-- Coluna 1: Marca e descrição -->
+        <div class="footer-brand">
+          <a href="#hero" class="footer-logo" aria-label="Projekt — Início">
+            <span class="logo-mark">P</span>
+            <span class="logo-text">PROJEKT</span>
+          </a>
+          <p class="footer-tagline">
+            Gestão de projetos de tecnologia, gestão ágil e IA.
+            Curitiba, Paraná.
+          </p>
+
+          <!-- Redes sociais -->
+          <div class="social-links" aria-label="Redes sociais da Projekt">
+            <!-- ATUALIZAR: URLs das redes sociais -->
+            <a
+              href="https://linkedin.com/company/projekt"
+              class="social-link"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="LinkedIn da Projekt"
+            >
+              <i class="fab fa-linkedin" aria-hidden="true"></i>
+            </a>
+            <a
+              href="https://instagram.com/projekt.br"
+              class="social-link"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Instagram da Projekt"
+            >
+              <i class="fab fa-instagram" aria-hidden="true"></i>
+            </a>
+            <a
+              href="https://wa.me/5541999999999"
+              class="social-link social-link-whatsapp"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="WhatsApp da Projekt"
+            >
+              <i class="fab fa-whatsapp" aria-hidden="true"></i>
+            </a>
+            <a
+              href="https://twitter.com/projektbr"
+              class="social-link"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="X (Twitter) da Projekt"
+            >
+              <i class="fab fa-x-twitter" aria-hidden="true"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Coluna 2: Soluções -->
+        <div class="footer-col">
+          <h4 class="footer-col-title">Soluções</h4>
+          <ul class="footer-links" role="list">
+            <li><a href="#solucoes" class="footer-link">Projetos de Tecnologia</a></li>
+            <li><a href="#solucoes" class="footer-link">Gestão Ágil</a></li>
+            <li><a href="#solucoes" class="footer-link">Projetos de IA</a></li>
+            <li><a href="#metodologia" class="footer-link">Nossa Metodologia</a></li>
+          </ul>
+        </div>
+
+        <!-- Coluna 3: Empresa -->
+        <div class="footer-col">
+          <h4 class="footer-col-title">Empresa</h4>
+          <ul class="footer-links" role="list">
+            <li><a href="#sobre" class="footer-link">Sobre a Projekt</a></li>
+            <li><a href="#diferenciais" class="footer-link">Diferenciais</a></li>
+            <li><a href="#depoimentos" class="footer-link">Depoimentos</a></li>
+            <li><a href="#contato" class="footer-link">Trabalhe Conosco</a></li>
+          </ul>
+        </div>
+
+        <!-- Coluna 4: Contato rápido -->
+        <div class="footer-col">
+          <h4 class="footer-col-title">Contato</h4>
+          <ul class="footer-links" role="list">
+            <li>
+              <a
+                href="https://wa.me/5541999999999"
+                class="footer-link"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <i class="fab fa-whatsapp" aria-hidden="true"></i> (41) 9 9999-9999
+              </a>
+            </li>
+            <li>
+              <a href="mailto:contato@projekt.com.br" class="footer-link">
+                <i class="fas fa-envelope" aria-hidden="true"></i> contato@projekt.com.br
+              </a>
+            </li>
+            <li>
+              <span class="footer-link footer-address">
+                <i class="fas fa-location-dot" aria-hidden="true"></i>
+                Curitiba, PR — Brasil
+              </span>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+
+      <!-- Linha inferior: copyright e links legais -->
+      <div class="footer-bottom">
+        <p class="footer-copyright">
+          &copy; <span id="currentYear"></span> Projekt Gestão de Projetos.
+          Todos os direitos reservados.
+        </p>
+        <div class="footer-legal">
+          <!-- ADICIONAR: links para política de privacidade e termos se necessário -->
+          <a href="#" class="footer-legal-link">Política de Privacidade</a>
+          <a href="#" class="footer-legal-link">Termos de Uso</a>
+        </div>
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- ─── SCRIPTS EXTERNOS ─────────────────────────────── -->
+
+  <!-- GSAP 3: biblioteca de animação líder da indústria -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" integrity="sha512-7eHRwcbYkK4d+YkdMl7ml0H/yWH7BWOG7N8VflNFYZCiHHHpltTFRSSRDxlFOTRxSFAJCWFfzFDR5c+1DdNaA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+  <!-- GSAP ScrollTrigger: animações atreladas ao scroll -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" integrity="sha512-onMTRKJBKz8M1TnqqDuGBlowlH0ohFzMXYRNebz+yOcc5TQr/zAKsthzhuv0hiyUKEiQEQXEynnXCvNTOk50dA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+  <!-- Script principal da Projekt -->
+  <script src="js/main.js"></script>
+
+</body>
+</html>
